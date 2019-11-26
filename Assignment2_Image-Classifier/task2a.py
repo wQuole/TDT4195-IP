@@ -16,10 +16,26 @@ def MaxPool2d(im: np.array,
     """
     stride = kernel_size
     ### START YOUR CODE HERE ### (You can change anything inside this block) 
+    stride = kernel_size
+    H_in, W_in, C_in = im.shape
 
+    # calculate the output dimensions after being maxpooled
+    H_out = H_in // kernel_size
+    W_out = W_in // kernel_size
+    # C_out = C_in
 
+    # new zero-padded matrix to receive updates for maxpooling
+    mp_image = np.zeros((H_out, W_out, C_in))
+    H_half, W_half, C_half = mp_image.shape
 
-    return new_im
+    for j in range(H_half):
+        for i in range(W_half):
+            for k in range(C_half):
+                mp_image[j, i, k] = np.max(im[
+                                           (j * stride):((j + 1) * stride),
+                                           (i * stride):((i + 1) * stride),
+                                           k])
+    return mp_image
     ### END YOUR CODE HERE ### 
 
 
